@@ -1,0 +1,34 @@
+[postfix-flood-attack]
+enabled  = true
+maxretry = 4 
+bantime  = 3600
+filter   = postfix-flood-attack
+action   = iptables-multiport[name=postfix, port="http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve", protocol=tcp]
+logpath  = /var/log/mail.log
+ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 14.201.130.169 27.50.88.9 35.200.177.103 192.168.0.0/24 149.72.245.18 1.145.209.219 1.145.214.34 1.145.244.50 1.145.253.74
+
+[postfix]
+enabled = true
+maxretry = 6
+bantime = 3600
+filter = postfix
+logpath = /var/log/mail.log
+ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 14.201.130.169 27.50.88.9 35.200.177.103 192.168.0.0/24 149.72.245.18 1.145.209.219 1.145.214.34 1.145.244.50 1.145.253.74
+
+[sshd]
+enabled = true
+port = 44
+maxretry = 3
+filter = sshd
+bantime = 24h
+ignoreip = 127.0.0.1/8 ::1/128 192.168.1.0/24 10.8.0.0/24 14.201.130.169 192.168.0.0/24 100.64.0.0/10
+logpath = /var/log/auth.log
+
+[dovecot]
+enabled = true
+maxretry = 3
+bantime = 3600
+filter = dovecot
+logpath = /var/log/mail.log
+ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24 14.201.130.169 192.168.0.0/24 149.72.245.18 1.145.209.219 1.145.214.34 1.145.244.50 1.145.253.74
+ 
